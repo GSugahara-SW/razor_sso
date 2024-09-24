@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - My App</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <!-- Other navigation links -->
+
+                <!-- Show the login/logout based on user authentication state -->
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <li>Hello, @User.Identity.Name</li>
+                    <li><a href="MicrosoftIdentity/Account/SignOut">Logout</a></li>
+                }
+                else
+                {
+                    <li><a href="MicrosoftIdentity/Account/SignIn">Login</a></li>
+                }
+            </ul>
+        </nav>
+    </header>
+
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2024 - My App - <a href="/Privacy">Privacy</a>
+        </div>
+    </footer>
+
+    @RenderSection("Scripts", required: false)
+</body>
+
+</html>
