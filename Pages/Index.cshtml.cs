@@ -1,7 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 
 namespace RazorPagesMovie.Pages;
+
+[AllowAnonymous]
 
 public class IndexModel : PageModel
 {
@@ -16,4 +21,16 @@ public class IndexModel : PageModel
     {
 
     }
+
+    public IActionResult OnPostLogin()
+    {
+        // Trigger the authentication challenge to Azure AD
+        return Challenge(new AuthenticationProperties { RedirectUri = "/" }, OpenIdConnectDefaults.AuthenticationScheme);
+    }
+    public IActionResult OnPostLogout()
+    {
+        // Log the user out and redirect to the homepage
+        return SignOut(new AuthenticationProperties { RedirectUri = "/" }, OpenIdConnectDefaults.AuthenticationScheme);
+    }
+
 }
